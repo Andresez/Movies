@@ -1,0 +1,66 @@
+﻿<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@section Scripts{
+    <script>
+        function grafica() {
+            fetch("Movies/Graficas")
+                .then((response) => {
+                    return response.ok ? response.json() : Promise.reject(response)
+                })
+                .then((dataJson) => {
+                    console.log(dataJson)
+                    const ctx = document.getElementById('myChart');
+
+                    const labels = dataJson.map((item) => { return item.nombre });
+                    const values = dataJson.map((item) => { return item.puntuacion });
+
+                    // Arreglo de colores para las áreas de la gráfica polar
+                    const colors = [
+                        'rgba(255, 99, 132, 0.6)',    
+                        'rgba(54, 162, 235, 0.6)',    
+                        'rgba(255, 206, 86, 0.6)',    
+                        'rgba(75, 192, 192, 0.6)',    
+                        'rgba(153, 102, 255, 0.6)',   
+                        'rgba(255, 159, 64, 0.6)',    
+                        'rgba(0, 128, 0, 0.6)',       
+                        'rgba(128, 0, 128, 0.6)',     
+                        'rgba(255, 0, 0, 0.6)',       
+                        'rgba(0, 0, 255, 0.6)',       
+                        'rgba(255, 255, 0, 0.6)',     
+                        'rgba(0, 255, 255, 0.6)',     
+                        'rgba(255, 0, 255, 0.6)',     
+                        'rgba(128, 128, 128, 0.6)',   
+                        'rgba(0, 0, 0, 0.6)'          
+                    ];
+
+                    new Chart(ctx, {
+                        type: 'polarArea', 
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: values,
+                                backgroundColor: colors, // Colores para las áreas de la gráfica polar
+                                borderColor: 'white',    // Borde blanco para las áreas
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                r: {
+                                    beginAtZero: true
+                                }
+                            }                           
+                        }
+                    });
+                })
+        }
+
+        $(document).ready(() => {
+            grafica()
+        })
+    </script>
+}
+
+

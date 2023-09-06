@@ -1,0 +1,48 @@
+﻿﻿@using Microsoft.AspNetCore.Identity;
+@using WarnerBros.Areas.Identity.Data
+@model IEnumerable<WarnerBros.Models.Movies>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@section Scripts{
+    <script>
+        function grafica() {
+            fetch("Movies/Grafica")
+                .then((response) => {
+                    return response.ok ? response.json() : Promise.reject(response)
+                })
+                .then((dataJson) => {
+                    console.log(dataJson)
+                    const ctx = document.getElementById('myChart');
+
+                    const labels = dataJson.map((item) => { return item.nombre });
+                    const values = dataJson.map((item) => { return item.puntuacion });
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            datasets: [{
+                                label: '# of Votes',
+                                data: [12, 19, 3, 5, 2, 3],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+        }
+
+        $(document).ready(() => {
+            grafica()
+        })
+    </script>
+}

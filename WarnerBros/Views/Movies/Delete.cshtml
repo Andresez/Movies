@@ -1,0 +1,46 @@
+﻿@model WarnerBros.Models.Movies
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container mt-5">
+    <h1 class="text-white">Delete</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4" style="color: white">
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="id" />
+
+                <div class="form-group">
+                    <img src="@Model.img" style="width:100%"<img />
+                </div>
+                <div class="form-group">
+                    <label for="Title" class="form-label">Title:</label>
+                    <input type="text" id="Title" class="form-control" value="@Model.nombre" disabled />
+                </div>
+                <div class="form-group">
+                    <label for="Synopsis" class="form-label">Synopsis:</label>
+                    <input type="text" id="Synopsis" class="form-control" value="@Model.sinopsis" disabled />
+                </div>
+                <div class="form-group">
+                    <label for="Director" class="form-label">Director:</label>
+                    <input type="text" id="Director" class="form-control" value="@Model.director" disabled />
+                </div>
+                <div class="form-group">
+                    <label for="Genre" class="form-label">Genre:</label>
+                    <input type="text" id="Genre" class="form-control" value="@Model.genero" disabled />
+                </div>
+                <div class="form-group">
+                    <label for="Punctuation" class="form-label">Punctuation:</label>
+                    <input type="number" id="Punctuation" class="form-control" value="@Model.puntuacion" disabled/>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <button type="submit" value="Delete" class="btn btn-danger">Delete</button> | <a asp-action="Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
